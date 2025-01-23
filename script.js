@@ -1,9 +1,9 @@
-// WebƒJƒƒ‰‚Ì‹N“®
+// Webã‚«ãƒ¡ãƒ©ã®èµ·å‹•
 const video = document.getElementById('video');
 let contentWidth;
 let contentHeight;
 
-const media = navigator.mediaDevices.getUserMedia({ audio: false, video: {width:640, height:480} })
+const media = navigator.mediaDevices.getUserMedia({ audio: false, video: {facingMode:{exact: 'envilrnment'}{width:640, height:480} })
    .then((stream) => {
       video.srcObject = stream;
       video.onloadeddata = () => {
@@ -17,7 +17,7 @@ const media = navigator.mediaDevices.getUserMedia({ audio: false, video: {width:
       console.log(e);
    });
 
-// ƒJƒƒ‰‰f‘œ‚ÌƒLƒƒƒ“ƒoƒX•\Ž¦
+// ã‚«ãƒ¡ãƒ©æ˜ åƒã®ã‚­ãƒ£ãƒ³ãƒã‚¹è¡¨ç¤º
 const cvs = document.getElementById('camera-canvas');
 const ctx = cvs.getContext('2d');
 const canvasUpdate = () => {
@@ -27,29 +27,29 @@ const canvasUpdate = () => {
    requestAnimationFrame(canvasUpdate);
 }
 
-// QRƒR[ƒh‚ÌŒŸo
+// QRã‚³ãƒ¼ãƒ‰ã®æ¤œå‡º
 const rectCvs = document.getElementById('rect-canvas');
 const rectCtx =  rectCvs.getContext('2d');
 const checkImage = () => {
-   // imageData‚ðì‚é
+   // imageDataã‚’ä½œã‚‹
    const imageData = ctx.getImageData(0, 0, contentWidth, contentHeight);
-   // jsQR‚É“n‚·
+   // jsQRã«æ¸¡ã™
    const code = jsQR(imageData.data, contentWidth, contentHeight);
 
-   // ŒŸoŒ‹‰Ê‚É‡‚í‚¹‚Äˆ—‚ðŽÀŽ{
+   // æ¤œå‡ºçµæžœã«åˆã‚ã›ã¦å‡¦ç†ã‚’å®Ÿæ–½
    if (code) {
-      console.log("QRcode‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½", code);
+      console.log("QRcodeãŒè¦‹ã¤ã‹ã‚Šã¾ã—ãŸ", code);
       drawRect(code.location);
-      document.getElementById('qr-msg').textContent = `QRƒR[ƒhF${code.data}`;
+      document.getElementById('qr-msg').textContent = `QRã‚³ãƒ¼ãƒ‰ï¼š${code.data}`;
    } else {
-      console.log("QRcode‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñc", code);
+      console.log("QRcodeãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“â€¦", code);
       rectCtx.clearRect(0, 0, contentWidth, contentHeight);
-      document.getElementById('qr-msg').textContent = `QRƒR[ƒh: Œ©‚Â‚©‚è‚Ü‚¹‚ñ`;
+      document.getElementById('qr-msg').textContent = `QRã‚³ãƒ¼ãƒ‰: è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“`;
    }
    setTimeout(()=>{ checkImage() }, 500);
 }
 
-// Žl•ÓŒ`‚Ì•`‰æ
+// å››è¾ºå½¢ã®æç”»
 const drawRect = (location) => {
    rectCvs.width = contentWidth;
    rectCvs.height = contentHeight;
@@ -59,7 +59,7 @@ const drawRect = (location) => {
    drawLine(location.bottomLeftCorner, location.topLeftCorner)
 }
 
-// ü‚Ì•`‰æ
+// ç·šã®æç”»
 const drawLine = (begin, end) => {
    rectCtx.lineWidth = 4;
    rectCtx.strokeStyle = "#F00";
